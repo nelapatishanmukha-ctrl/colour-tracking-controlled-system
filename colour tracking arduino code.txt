@@ -1,0 +1,23 @@
+int relayPin = 7;  // Relay connected to digital pin D7
+
+void setup() {
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, LOW);  // Start with relay OFF
+  Serial.begin(9600);           // Match Processing baud rate
+}
+
+void loop() {
+  if (Serial.available()) {
+    String cmd = Serial.readStringUntil('\n');  // Read until newline
+
+    cmd.trim();  // Remove any extra spaces/newlines
+
+    if (cmd == "ON") {
+      digitalWrite(relayPin, HIGH);   // Turn relay ON
+      Serial.println("Relay ON");
+    } else if (cmd == "OFF") {
+      digitalWrite(relayPin, LOW);    // Turn relay OFF
+      Serial.println("Relay OFF");
+    }
+  }
+}
